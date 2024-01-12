@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{request.user.first_name}} {{request.user.last_name}}</title>
+
+    
+    <link rel="stylesheet" href="{% static 'Profile/style.css' %}">
+</head>
+<body>
+
+
+    <div class="row">
+        <div class="col-md-6" style="border: 1px solid red;height: 450px;overflow-y: scroll;">
+            <table>
+                <tr>
+                  <th>پروفایل</th>
+                  <th>نام</th>
+                  <th>نام هتل</th>
+                  <th>شماره اتاق</th>
+                  <th>طبقه</th>
+                  <th>تاریخ ورود</th>
+                  <th>تعداد روز اقامت</th>
+                  <th>هزینه پرداخت</th>
+                  <th>لغو رزرو</th>
+                </tr>
+            {% for data_hotel in res_hotel_data %}
+
+                <tr>
+                  <td><img src="{{data_hotel.hotel.image.url}}" alt="user"></td>
+                  <td>{{data_hotel.user.first_name}} <span>  </span>{{data_hotel.user.last_name}}</td>
+                  <td>{{data_hotel.hotel.name}}</td>
+                  <td>{{data_hotel.hotel.floor}}</td>
+                  <td>{{data_hotel.hotel.room}}</td>
+                  <td>{{data_hotel.in_hotel}}</td>
+                  <td>{{data_hotel.count}}</td>
+                  <td>{{data_hotel.price|floatformat:"g"}}</td>
+                  <td class="drop"><a onclick="DeletHotel({{data_hotel.id}})">لغو</a></td>
+                </tr>
+            {% endfor %}
+            </table>
+
+        </div>
+
+        <div class="col-md-6" style="border: 1px solid rgb(0, 0, 0);height: 450px;overflow-y: scroll;">
+
+            <table>
+                <tr>
+                  <th>پروفایل</th>
+                  <th>نام</th>
+                  <th>نام صاحب ویلا</th>
+                  <th>تاریخ ورود</th>
+                  <th>تاریخ خروج</th>
+                  <th>هزینه پرداخت</th>
+                  <th>لغو رزرو</th>
+                </tr>
+                
+                {% for data_villa in res_villa_data %}
+                    <tr>
+                        <td><img src="{{data_villa.Villa.image.url}}" alt="user"></td>
+                        <td>{{data_villa.user.first_name}} <span>  </span>{{data_villa.user.last_name}}</td>
+                        <td>{{data_villa.Villa.name}}</td>
+                        <td>{{data_villa.in_hotel}}</td>
+                        <td>{{data_villa.count}}</td>
+                        <td>{{data_villa.price|floatformat:"g"}}</td>
+                        <td class="drop"><a onclick="DeletVilla({{data_villa.id}})">لغو</a></td>
+                    
+                    </tr>
+                {% endfor %}
+
+            </table>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'Date/js/js-persian-cal.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    function DeletHotel(ResId){
+        alert(ResId)
+            $.get('/reservation/delete-hotel?res_id=' + ResId).then(res => {
+                Swal.fire({
+                    title: res.title,
+                    text: res.text,
+                    icon: res.icon,
+                    showCancelButton: false,
+                    confirmButtonColor: res.confirmButtonColor,
+                    confirmButtonText: res.confirmButtonText
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                       if (res.status == 'not_auth'){
+                        window.location.href = '/Account_Model/login'
+                       }
+                    }
+                    })
+                })
+            }
+
+    function DeletVilla(ResId){
+        alert(ResId)
+            $.get('/reservation/delete-villa?res_id=' + ResId).then(res => {
+                Swal.fire({
+                    title: res.title,
+                    text: res.text,
+                    icon: res.icon,
+                    showCancelButton: false,
+                    confirmButtonColor: res.confirmButtonColor,
+                    confirmButtonText: res.confirmButtonText
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                       if (res.status == 'not_auth'){
+                        window.location.href = '/Account_Model/login'
+                       }
+                    }
+                    })
+                })
+            }
+  </script>
+
+</body>
+</html>
+
+

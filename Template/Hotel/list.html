@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>همدان-گرد</title>
+
+
+  <!-- Favicons -->
+  <link href="{% static 'Tourism/assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'Tourism/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+
+
+  <!-- Vendor CSS Files -->
+  <!-- <link href="{% static 'Tourism/assets/vendor/aos/aos.css' %}" rel="stylesheet"> -->
+  <link href="{% static 'Tourism/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Tourism/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'Tourism/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Tourism/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Tourism/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Tourism/assets/fontawesome-free-6.5.1-web/css/fontawesome.css' %}" rel="stylesheet">
+  <link href="{% static 'Tourism/assets/fontawesome-free-6.5.1-web/css/fontawesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Tourism/assets/fontawesome-free-6.5.1-web/css/all.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'Tourism/assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: MyResume
+  * Updated: Jul 27 2023 with Bootstrap v5.3.1
+  * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+ <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>هتل ها</h2>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
+
+          </div>
+        </div>
+
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+          {% for data in hotel_list %}
+            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                <div class="portfolio-wrap">
+                <img src="{{data.image.url}}" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                    <h4>{{data.name}}</h4>
+                    <!-- <p>App</p> -->
+                    <div class="portfolio-links">
+                    <a href="{{data.image.url}}" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                        title="App 1"><i class="bx bx-plus"></i></a>
+                    <a href="{% url 'Home_Model:Hotel_detail' name=data.name_en %}" class="portfolio-details-lightbox" data-glightbox="type: external"
+                        title="Portfolio Details"><i class="bx bx-link"></i></a>
+                    </div>
+                </div>
+                </div>
+            </div>
+          {% endfor %}
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Section -->
+
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'Tourism/assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'Tourism/assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'Tourism/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'Tourism/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'Tourism/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'Tourism/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'Tourism/assets/vendor/typed.js/typed.umd.js' %}"></script>
+  <script src="{% static 'Tourism/assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
+  <script src="{% static 'Tourism/assets/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'Tourism/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>
